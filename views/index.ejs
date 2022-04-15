@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ecom</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <h1>Welcome  </h1>
+        <%- include("partials/header",{name:user,profilePic: pic})%>
+        <div class="container">
+            <div class="row">
+                <% products.forEach(function(e) { %>
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img src="<%= e.image %>">
+                            <div class="caption">
+                                <h3><%= e.name %></h3>
+                                <button class="press" >Details</button>
+                                <div class="details" style="display: none">
+                                    <p><%=e.description%></p>
+                                    <p>$<%=e.price%></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <form action="/inc" method="post"  >
+                <input type="submit" name="more" value="Load More"/>
+                <input type="submit" name="collapse" value="Collapse"/>
+            </form>
+    </body>
+    <script >
+            
+            var press = document.querySelectorAll('.press')
+            for(var i = 0; i < press.length;i++){
+                press[i].addEventListener('click',()=>{
+                    var x = event.target.nextElementSibling.style.display 
+                    if(x == 'block'){
+                        event.target.nextElementSibling.style.display = 'none'
+                        event.target.innerHTML = 'Details'
+                    }
+                    else{
+                        event.target.nextElementSibling.style.display  = 'block'
+                        event.target.innerHTML = 'Collapse'
+                    }
+                })
+            }
+    </script>
+</html>
