@@ -1,15 +1,22 @@
 <div>
-    <form action="/users/signup" method="post" enctype="multipart/form-data">
-        <input required name="username" placeholder="Username"/>
-        <input required name="email" placeholder="Email" type="email"/>
-        <input required name="password" type="password" placeholder="password"/>
-        <input required type="file" name="profilePic"/>
-        <input type="submit" value="signup"/>
-    </form>
+    <div>
+        <form action="/users/signup" method="post" enctype="multipart/form-data">
+            <label for="username">Username</label> 
+            <input required name="username" placeholder="Username"/>
+            <label for="email">Email</label> 
+            <input required name="email" placeholder="Email" type="email"/>
+            <label for="password">Password</label> 
+            <input required name="password" type="password" placeholder="password"/>
+            <label for="confirmPassword">Confirm Password</label> 
+            <input required name="confirmPassword" type="password" placeholder="confirm-password"/>
+            <input required type="file" name="profilePic"/>
+            <input type="submit" value="signup"/>
+        </form>
+    </div>
     <%  if(error){ %>
         <h1> <%= error%> </h1>
     <%  }%>
-    <a href="/users/signup">
+    <a href="/users/login">
         <p>Already Registered?</p>
     </a>
     <a href="/">

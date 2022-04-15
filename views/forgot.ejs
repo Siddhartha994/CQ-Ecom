@@ -1,0 +1,32 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <h1>Forgot Password? </h1>
+            <h3>You'll receive a link on your registered email to reset your password</h3>
+                <div>
+                    <form action="/users/reset" method="post">
+                        <%if(!user){%>
+                            <h3>Enter your registered email</h3>
+                            <label for="email">Email</label>
+                            <input required name="email" placeholder="Email"/>
+                        <%}%>
+                        <%if(!sent){%>
+                            <input type="submit" value="send Mail"/>
+                        <%}%>
+                    </form>
+                </div>
+            <%if(sent){%>
+                <h2>Main Sent,open link and reset your password</h2>
+            <%}%>
+            <a href="/users/login">
+                <p>Login</p>
+            </a>
+            <a href="/">
+                <p>Home</p>
+            </a>
+        </div>
+    </body>
+</html>
