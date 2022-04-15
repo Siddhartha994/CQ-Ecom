@@ -5,7 +5,7 @@
     <body>
         <div>
             <h1>Login </h1>
-            <form action="/login" method="post">
+            <form action="/users/login" method="post">
                 <input required name="username" placeholder="Username"/>
                 <input required name="password" placeholder="password"/>
                 <input type="submit" value="login"/>
@@ -13,13 +13,13 @@
             <%if(error){%>
                 <h1><%=error%></h1>
             <%}%>
-            <a href="/signup">
+            <a href="/users/signup">
                 <p>Create an Account</p>
             </a>
             <a href="/">
                 <p>Home</p>
             </a>
-            <a href="/reset">
+            <a href="/users/reset">
                 <p>Forgot password?</p>
             </a>
         </div>

@@ -1,0 +1,18 @@
+<div>
+    <form action="/users/signup" method="post" enctype="multipart/form-data">
+        <input required name="username" placeholder="Username"/>
+        <input required name="email" placeholder="Email" type="email"/>
+        <input required name="password" type="password" placeholder="password"/>
+        <input required type="file" name="profilePic"/>
+        <input type="submit" value="signup"/>
+    </form>
+    <%  if(error){ %>
+        <h1> <%= error%> </h1>
+    <%  }%>
+    <a href="/users/signup">
+        <p>Already Registered?</p>
+    </a>
+    <a href="/">
+        <p>Home</p>
+    </a>
+</div>
