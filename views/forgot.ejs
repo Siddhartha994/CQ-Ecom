@@ -8,10 +8,10 @@
             <h3>You'll receive a link on your registered email to reset your password</h3>
                 <div>
                     <form action="/users/reset" method="post">
-                        <%if(!user){%>
+                        <%if(!user&&!sent){%>
                             <h3>Enter your registered email</h3>
                             <label for="email">Email</label>
-                            <input required name="email" placeholder="Email"/>
+                            <input required name="email" type="email" placeholder="Email"/>
                         <%}%>
                         <%if(!sent){%>
                             <input type="submit" value="send Mail"/>
@@ -21,11 +21,15 @@
             <%if(sent){%>
                 <h2>Main Sent,open link and reset your password</h2>
             <%}%>
+            <%if(error){%>
+                <h1><%=error%></h1>
+            <%}%>
+
             <a href="/users/login">
                 <p>Login</p>
             </a>
-            <a href="/">
-                <p>Home</p>
+            <a href="/product">
+                <p>Products</p>
             </a>
         </div>
     </body>

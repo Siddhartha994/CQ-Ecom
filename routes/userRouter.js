@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 var router = express.Router();
+
 // router.use(bodyParser.json());
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -153,19 +154,20 @@ router.route('/reset')
         },
         function(token, done) {
             var email 
-            req.session? email =  req.session.email : email = req.body.email
-            console.log('set'+email)
-            Users.findOne({ email: email }, function(err, user) {
+            req.session.isLoggedin?email =  req.session.email : email = req.body.email
+            Users.findOne({email: email})
+            .then((user)=>{
                 if (!user) {
-                    req.flash('error', 'No account with that email address exists.');
-                    return res.redirect('/forgot');
-                }
+                    res.render('forgot',{user:'',sent:'',error:'Email not registered,try again!!'});
+                }    
                 user.resetPasswordToken = token;
                 user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
                 user.save(function(err) {
-                    done(err, token, user);
-                });
-            });
+                done(err, token, user);
+                return
+                })
+            })
+            .catch(error=>console.log(error));
         },
         function(token, user, done) {
             var transporter = nodemailer.createTransport({
@@ -175,7 +177,7 @@ router.route('/reset')
                     pass: "bsqnzdltpnsxaxec"
                 }
             });
-            console.log(user.email)
+            // console.log(user.email)
             var mailOptions = {
             from: 'rana.siddharth994@yahoo.com',
             to: user.email,
@@ -186,10 +188,8 @@ router.route('/reset')
                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
             transporter.sendMail(mailOptions, function(err) {
-                if(err)
-                    console.log(err)
-                else
-                    res.render('forgot', {user:req.session.user , sent:'true'});
+                res.render('forgot', {user:req.session.user , sent:'true',error:''});
+                done(err, 'done');
             });
         }
         ], function(err) {
@@ -207,7 +207,8 @@ router.route('/reset/:token')
         }
         res.render('reset', {
             user: req.session.user,
-            sent: ''
+            sent: '',
+            error:''
         });
     });
 })
@@ -259,13 +260,15 @@ router.route('/forgot')
     if(req.session){
         res.render('forgot', {
             user: req.session.user,
-            sent:''
+            sent:'',
+            error:''
         });
     }
     else{
         res.render('forgot',{
             user: '',
-            sent:''
+            sent:'',
+            error:''
         });
     }
 });
