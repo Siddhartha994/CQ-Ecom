@@ -42,7 +42,7 @@ router.route('/signup')
     const password = req.body.password; 
     const email = req.body.email; 
     const confirmP = req.body.confirmPassword;
-console.log(password,confirmP,req.body)
+// console.log(password,confirmP,req.body)
     const file = req.file; 
     
     // console.log(username,password,req.file)
@@ -102,7 +102,7 @@ router.route('/login')
     var username = req.body.username
     var password = req.body.password
     if(!req.session.isLoggedin) {
-        console.log(username,password)
+        // console.log(username,password)
         Users.findOne({ username: username })
         .then((user) => {
             if (user === null) 
@@ -111,7 +111,7 @@ router.route('/login')
             else if (user.password !== password) 
                 res.render('login',{error:'Your password is incorrect!'});
             else if (user.username === username && user.password === password) {
-                console.log(user)
+                // console.log(user)
                 req.session.user = username
                 req.session.pic = user.profilePic
                 req.session.email = user.email
@@ -171,20 +171,20 @@ router.route('/reset')
         },
         function(token, user, done) {
             var transporter = nodemailer.createTransport({
-                service: "yahoo",
+                service: "gmail",
                 auth: {
-                    user: "rana.siddharth994@yahoo.com",
-                    pass: "bsqnzdltpnsxaxec"
+                    user: "sira.dev22@gmail.com",
+                    pass: "gmail1405"
                 }
             });
             // console.log(user.email)
             var mailOptions = {
-            from: 'rana.siddharth994@yahoo.com',
+            from: 'sira.dev22@gmail.com',
             to: user.email,
             subject: 'Node.js Password Reset',
             text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                 'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
             transporter.sendMail(mailOptions, function(err) {
@@ -202,13 +202,14 @@ router.route('/reset/:token')
     Users.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
             console.log('failed')
+
         // req.flash('error', 'Password reset token is invalid or has expired.');
         return res.redirect('/forgot');
         }
+        console.log(req.session.user)
         res.render('reset', {
-            user: req.session.user,
-            sent: '',
-            error:''
+            user: user.username,
+            token: req.params.token
         });
     });
 })
@@ -217,22 +218,21 @@ router.route('/reset/:token')
         function(done) {
         Users.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) {
-            req.flash('error', 'Password reset token is invalid or has expired.');
-            return res.redirect('back');
+                console.log('Password reset token is invalid or has expired.');
+                return res.redirect('back');
             }
+            console.log('hey')
             user.password = req.body.password;
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
             user.save(function(err) {
-            req.logIn(user, function(err) {
-                done(err, user);
-            });
+                res.redirect(303,'/')
             });
         });
         },
         function(user, done) {
         var smtpTransport = nodemailer.createTransport('SMTP', {
-            service: 'SendGrid',
+            service: 'gmail',
             auth: {
             user: 'sira.dev22@gmail.com',
             pass: 'gmail1405'
@@ -240,7 +240,7 @@ router.route('/reset/:token')
         });
         var mailOptions = {
             to: user.email,
-            from: 'passwordreset@demo.com',
+            from: 'sira.dev22@gmail.com',
             subject: 'Your password has been changed',
             text: 'Hello,\n\n' +
             'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'

@@ -1,0 +1,21 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <h1>Reset Password </h1>
+            <h3>Hello <%=user%></h3>
+            <div>
+                <%console.log(token)%>
+                <form action="/users/reset/<%=token%>" method="post">
+                    <label for="password">Password</label>
+                    <input required name="password" type="password" placeholder="New Password"/>
+                    <label for="confirm">Confirm Password</label>
+                    <input required name="confirm" type="password" placeholder="Confirm Password"/>
+                    <input type="submit" value="Confirm"/>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
