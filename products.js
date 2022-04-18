@@ -1,7 +1,7 @@
 [ 
     { 
         "name":"tv",
-        "price":"thk thk h", 
+        "price":3000, 
         "description":"its 55 inch IPS panwl overpriced tv",
         "image": "bekir-donmez-eofm5R5f9Kw-unsplash.jpg"
     }, 
@@ -10,28 +10,24 @@
         "price":"thoda sa costly h", 
         "description":"its display is amazing which is manufactured by samsung, bhaut mahanga hai" ,
         "image": "bekir-donmez-eofm5R5f9Kw-unsplash.jpg"
-
     }, 
     { 
         "name":"car", 
         "price":"baad mein le lena", 
         "description":"abhi uber se kaam chl sakta h",
         "image": "bekir-donmez-eofm5R5f9Kw-unsplash.jpg"
-
     },
     { 
         "name":"bada-tv",
         "price":"bada thk h", 
         "description":"its 55 inch IPS panwl overpriced tv" ,
         "image": "bekir-donmez-eofm5R5f9Kw-unsplash.jpg"
-
     }, 
     {
         "name":"bada-iphone", 
         "price":"bada costly h", 
         "description":"its display is amazing which is manufactured by samsung, bhaut mahanga hai" ,
         "image": "bekir-donmez-eofm5R5f9Kw-unsplash.jpg"
-
     }, 
     { 
         "name":"badi-car", 

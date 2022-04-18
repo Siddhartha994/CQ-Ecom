@@ -13,6 +13,7 @@ var db = require('./database/index')
 var indexRouter = require('./routes/indexRouter');
 var userRouter = require('./routes/userRouter');
 var productRouter = require('./routes/productRouter');
+var cartRouter = require('./routes/cartRouter');
 
 var app = express();
 // view engine setup
@@ -26,7 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public/uploads')));
+app.use(express.static(path.join(__dirname, '/public/uploads')));
+app.use(express.static(path.join(__dirname, '/public/javascripts')));
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -38,6 +40,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/product', productRouter);
+app.use('/cart', cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

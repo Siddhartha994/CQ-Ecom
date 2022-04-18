@@ -22,11 +22,6 @@ const upload = multer({ storage: storage })
 
 var router = express.Router();
 
-// router.use(bodyParser.json());
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
 
 router.get('/',(req,res)=>{
     res.render('home') 
@@ -115,6 +110,8 @@ router.route('/login')
                 req.session.user = username
                 req.session.pic = user.profilePic
                 req.session.email = user.email
+                req.session.userid = user._id
+                console.log(req.session.userid)
                 req.session.isLoggedin = true
                 req.session.count = 2;
                 res.redirect(303,'/product')
