@@ -1,10 +1,8 @@
 var express = require('express');
 var multer  = require('multer')
 var nodemailer = require('nodemailer');
-var xoauth2 = require('xoauth2');
 var async = require('async');
 var crypto = require('crypto');
-var bodyParser = require('body-parser');
 
 var Users = require('../database/models/user');
 
@@ -158,7 +156,7 @@ router.route('/reset')
                     res.render('forgot',{user:'',sent:'',error:'Email not registered,try again!!'});
                 }    
                 user.resetPasswordToken = token;
-                user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+                useNr.resetPasswordExpires = Date.now() + 3600000; // 1 hour
                 user.save(function(err) {
                 done(err, token, user);
                 return

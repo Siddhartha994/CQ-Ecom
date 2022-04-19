@@ -5,6 +5,7 @@ var userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     profilePic:{ type: String, required: true},
+    admin:{ type:Boolean, default:false},
     resetPasswordToken: String,
     resetPasswordExpires: Date
 },{

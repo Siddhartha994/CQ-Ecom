@@ -9,15 +9,18 @@ var Carts = require('../database/models/cart')
 router.route('/')
 .get((req,res)=>{
     if(req.session.isLoggedin){
-        Carts.find({"userinfo": req.session.userid})
+        Carts.findOne({"userinfo": req.session.userid})
         .populate('userinfo')
-        .populate('products')
+        .populate('products.product')
         .then((cart) => {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json(cart);
-        }, (err) => next(err))
-        .catch((err) => next(err));
+            
+            console.log(cart.products)
+            res.render('cart',{items:cart.products})
+            // res.statusCode = 200;
+            // res.setHeader('Content-Type', 'application/json');
+            // res.json(cart);
+        }, (err) => console.log(err))
+        .catch((err) => console.log(err));
     }
     else
         res.render('login',{error:'You are not logged in!'});  
@@ -29,8 +32,9 @@ router.route('/:prodId')
         .then((cart) => {
             if(cart) {
                 var flag = true
-                cart.products.forEach(x => {
-                    if(x.product == req.params._id)
+                cart.products.forEach( (x) => {
+                    console.log(x.product.valueOf())
+                    if(x.product.valueOf() == req.params._id)
                         flag = false
                 })
                 if(flag){

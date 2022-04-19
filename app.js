@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var flash = require('express-flash');
+// var flash = require('express-flash');
 
 var session = require('express-session')
 
@@ -21,7 +21,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 db.init();
 
-app.use(flash())
+// app.use(flash())
+var cors = require('cors')
+
+app.use(cors()) // Use this after the variable declaratio
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

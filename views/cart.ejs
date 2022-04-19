@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cart</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <h1>Cart</h1>
+        <div class="container">
+            <div class="row">
+                <% items.forEach(function(e) { %>
+                    <div class="col-md-4">
+                        <div class="caption">
+                            <ul>
+                                <li>
+                                    <h3 align="left"><%= e.product.name %></h3>
+                                    <h4 align="right">Qty. <%= e.quantity%></h4>
+                                    <h4>$<%=e.product.price%></h4>
+                                    <button class="inc">+</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+    </body>
+    <script src="cartScript.js">
+    </script>
+</html>

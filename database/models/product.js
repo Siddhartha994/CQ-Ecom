@@ -22,6 +22,14 @@ const productSchema = new Schema({
         type: Number,
         required: true,
         min: 0
+    },
+    seller:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'luser'
+    },
+    quantity:{
+        type: Number,
+        required: true
     }
 }, {
     timestamps: true

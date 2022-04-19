@@ -16,8 +16,8 @@
                             <img src="<%= e.image %>">
                             <div class="caption">
                                 <h3><%= e.name %></h3>
+                                <button class="atc" key="<%=e._id%>" >Add to Cart</button>
                                 <button class="press" >Details</button>
-                                <button id="atc" >Add to Cart</button>
                                 <div class="details" style="display: none">
                                     <p><%=e.description%></p>
                                     <p>$<%=e.price%></p>
@@ -33,7 +33,5 @@
             </form>
     </body>
     <script src="productScript.js">
-            
-            
     </script>
 </html>
