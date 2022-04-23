@@ -165,7 +165,6 @@
         "price":"5000", 
         "description":"sony wireless" ,
         "image": "bekir-donmez-eofm5R5f9Kw-unsplash.jpg"
-
     }, 
     {
         "name":"Laptop", 

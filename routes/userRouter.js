@@ -4,7 +4,9 @@ var nodemailer = require('nodemailer');
 var async = require('async');
 var crypto = require('crypto');
 
-var Users = require('../database/models/user');
+const usersInstance = require('../database/models/user');
+const Users = usersInstance.role
+const enums = usersInstance.enum
 
 //multer
 const storage = multer.diskStorage({
@@ -74,7 +76,8 @@ router.route('/signup')
             username: username,
             password: password,
             profilePic: file.filename,
-            email: email
+            email: email,
+            userEnums: enums.customer
         })
         .then(()=>{ //nodemon fucking with 307(prolly erasing req)
             // console.log(username,password)
@@ -111,6 +114,8 @@ router.route('/login')
                 req.session.userid = user._id
                 console.log(req.session.userid)
                 req.session.isLoggedin = true
+                if(user.userType == enums.admin)
+                    req.session.admin = true
                 req.session.count = 2;
                 res.redirect(303,'/product')
             }

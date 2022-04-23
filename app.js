@@ -8,12 +8,16 @@ var logger = require('morgan');
 var session = require('express-session')
 
 
+const usersInstance = require('./database/models/user');
+const Users = usersInstance.role
+const enums = usersInstance.enum
 
 var db = require('./database/index')
 var indexRouter = require('./routes/indexRouter');
 var userRouter = require('./routes/userRouter');
 var productRouter = require('./routes/productRouter');
 var cartRouter = require('./routes/cartRouter');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 // view engine setup
@@ -28,9 +32,11 @@ app.use(cors()) // Use this after the variable declaratio
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(express.multipart());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '/public/uploads')));
+app.use(express.static(path.join(__dirname, '/public/images')));
 app.use(express.static(path.join(__dirname, '/public/javascripts')));
 app.use(session({
   secret: 'keyboard cat',
@@ -44,6 +50,25 @@ app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/product', productRouter);
 app.use('/cart', cartRouter);
+app.use('/admin',(req,res,next)=>{
+  if(req.session.isLoggedin){
+    var id = req.session.userid
+    Users.findById({_id: id})
+    .then((user)=>{
+      if(user){
+        if(req.session.admin){
+          // res.render('admin/pages/login',{error:''})
+          next()
+        }
+        else  
+          res.render('admin/pages/login',{error:'You are not registered as an admin'})
+      }
+      else
+        res.render('admin/pages/login',{error:'User not found!'})
+    })
+  }
+})
+app.use('/admin',adminRouter.auth)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

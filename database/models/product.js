@@ -23,10 +23,10 @@ const productSchema = new Schema({
         required: true,
         min: 0
     },
-    seller:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'luser'
-    },
+    // seller:{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'luser'
+    // },
     quantity:{
         type: Number,
         required: true

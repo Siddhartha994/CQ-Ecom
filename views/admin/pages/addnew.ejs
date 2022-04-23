@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Add Product</title>
+</head>
+<body>
+    <%- include('../partials/navheader');%>
+    <div class="col-12 col-md-8"style="padding-left:5%; padding-top: 10%;" >
+        <div class="form-group text-center" style=" background-color: rgb(251, 186, 101); width: 100%; margin: auto; padding-top: 20px; border: 1px solid red;">
+            
+            <form action="/admin/new" method="post" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <label for="name" class="col-md-2 col-form-label">Product Name</label>
+                    <div class="col-md-6">
+                        <input name="name" type="text"  class="form-control"  placeholder="Product Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="description" class="col-md-2 col-form-label">Product Description</label>
+                    <div class="col-md-8">
+                        <input name="description" type="text" class="form-control"  placeholder="Product Description">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="price" class="col-md-2 col-form-label">Product Price</label>
+                    <div class="col-md-2">
+                        <input name="price" type="number"  min="50" max="100000" step="10" class="form-control" 
+                                placeholder="Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="quantity" class="col-12 col-md-2 col-form-label">Product Quantity</label>
+                    <div class="col-5 col-md-2">
+                        <input name="quantity"  type="number" min="0" max="50000" step="5" class="form-control" id="quantity"
+                            placeholder="Quantity">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="image" class="col-12 col-md-2 col-form-label">Product Image</label>
+                    <div class="col-7 col-md-7">
+                        <input name="productImage" type="file" class="form-control-file" id="image"
+                            placeholder="Image" >
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button> 
+            </form>
+        </div>
+    </div>
+</body>
+</html>

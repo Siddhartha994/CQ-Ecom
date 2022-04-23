@@ -1,21 +1,74 @@
 <html>
     <head>
         <script src="productScript.js"></script>
+        <style>
+            body{
+                background-color: #eee9f4;
+            }
+            ul{
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                display: flex;
+                background-color: rgb(130, 199, 67);
+            }
+            div#wrapperHeader {
+                width:fit-content;
+                height: fit-content; /* height of the background image? */
+                text-align:center;
+            }
+            div#wrapperHeader div#header {
+                width:fit-content;
+                height:fit-content;
+                margin:0 auto;
+            }
+            div#wrapperHeader div#header img {
+                width:60px; /* the width of the logo image */
+                height:60px; /* the height of the logo image */
+                margin:0 auto;
+            }
+            #ulist > li:last-child
+            {
+                float:right;
+            }
+            li:last-child{
+                float: right;
+            }
+            h1 { 
+                display: block;
+            }
+            li a {
+            display: block;
+            color: white;
+            text-align:right;
+            padding: 14px 16px;
+            text-decoration: none;
+            }
+            li a:hover {
+            background-color:#efef11;
+            text-decoration:solid;
+            color: black;
+        }
+        </style>
     </head>
     <body>
         <div>
-            <p>Logged in as:<b><%= name%></b></p>
-            <img src="<%=profilePic%>">
-            <a href="/users/logout">
-                <button>Logout</button>
-            </a>
-            <form action="/users/forgot" method="get">
-                <input type="submit" value="Reset password" />
-            </form>
-            <form action="/cart" method="get">
-                <input type="submit" value="My Cart" />
-            </form>
-            <!-- <button id="cart">Cart</button> -->
+            <ul id="ulist">
+                <div id="wrapperHeader">
+                    <div id="header">
+                        <img src="<%= profilePic %>" alt="logo" >
+                    </div> 
+                </div>
+                <h3><b><%= name%></b></h3>
+                
+                <li><a href="/users/forgot">Reset password</a></li>
+                <li><a href="/cart">My Cart</a></li>
+                <%if(admin){%>
+                    <li><a href="/admin/login">AdminSection</a></li>
+                <%}%>
+                <li><a class="active" href="/users/logout">Logout</a></li>
+            </ul>
         </div>
     </body>
 </html>
