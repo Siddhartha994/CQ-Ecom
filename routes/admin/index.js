@@ -1,3 +1,3 @@
 const auth = require('./auth')
 
-module.exports.auth = auth
+module.exports.tauth = auth

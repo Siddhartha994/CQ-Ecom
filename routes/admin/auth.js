@@ -36,9 +36,7 @@ router.route('/new')
         Products.create(req.body) 
         .then((product) => {
             console.log('Product Created ',product);
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json(product);
+            res.redirect('myprod')
         }, (err) => console.log(err))
         .catch((err) => console.log(err));
     }
@@ -47,11 +45,18 @@ router.route('/new')
 })
 router.route('/myprod')
 .get((req,res)=>{
-    res.render('admin/pages/myProd')
+    var arr = []
+    Products.find({"seller": req.session.userid})
+    .then((myprod)=>{
+        console.log('fuck'+myprod)
+        res.render('admin/pages/myProd',{prod: myprod})
+    })
 });
 router.route('/header')
 .get((req,res)=>{
     res.render('admin/partials/navheader')
 });
+// router.route((req,res)=>{
 
+// })
 module.exports = router

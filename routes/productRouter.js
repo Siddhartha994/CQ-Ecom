@@ -48,4 +48,4 @@ router.route('/inc')
     res.redirect(303,'/product')
 })
 
-    module.exports = router;
+module.exports = router;

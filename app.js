@@ -7,7 +7,6 @@ var logger = require('morgan');
 
 var session = require('express-session')
 
-
 const usersInstance = require('./database/models/user');
 const Users = usersInstance.role
 const enums = usersInstance.enum
@@ -68,7 +67,7 @@ app.use('/admin',(req,res,next)=>{
     })
   }
 })
-app.use('/admin',adminRouter.auth)
+app.use('/admin',adminRouter.tauth)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

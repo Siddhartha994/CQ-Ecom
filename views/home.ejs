@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <% products.forEach(function(e) { %>
-                    <div class="col-md-4">
+                    <div class="col-6 col-md-4">
                         <div class="thumbnail">
                             <img src="<%= e.image %>">
                             <div class="caption">
@@ -20,7 +20,7 @@
                                 <button class="press" >Details</button>
                                 <div class="details" style="display: none">
                                     <p><%=e.description%></p>
-                                    <p>$<%=e.price%></p>
+                                    <p>₹<%=e.price%></p>
                                 </div>
                             </div>
                         </div>
