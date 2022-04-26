@@ -52,10 +52,13 @@ router.route('/myprod')
         res.render('admin/pages/myProd',{prod: myprod})
     })
 });
-router.route('/header')
-.get((req,res)=>{
-    res.render('admin/partials/navheader')
-});
+router.route('/:id')
+.delete((req,res)=>{
+    console.log('req received'+ req.params.id)
+    Products.findOneAndDelete((req.params.id),()=>{
+        res.end();
+    })
+})
 // router.route((req,res)=>{
 
 // })
