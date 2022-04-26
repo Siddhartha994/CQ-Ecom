@@ -5,6 +5,7 @@ var router = express.Router();
 router.use(bodyParser.json());
 
 var Carts = require('../database/models/cart')
+var Products = require('../database/models/product')
 
 router.route('/')
 .get((req,res)=>{
@@ -31,9 +32,7 @@ router.route('/:prodId')
         .then((cart) => {
             if(cart){
                 cart.products.forEach((prd)=>{
-                    console.log('in'+prd.product.valueOf(),req.params.prodId)
                     if(prd.product.valueOf() == req.params.prodId){
-                        console.log('in')
                         res.statusCode = 200;
                         res.setHeader('Content-Type', 'application/json');
                         res.json(prd);
@@ -91,25 +90,68 @@ router.route('/:prodId')
 })
 .put((req,res)=>{
     if(req.session.isLoggedin){
+        var flag = true
         var qty = req.body.quantity
-        console.log(qty)
-        Carts.findOne({"userinfo": req.session.userid})
-        .then((cart) => {
-            if(cart) {
-                cart.products.forEach( (x) => {
-                    if(x.product.valueOf() == req.params.prodId){
-                        x.quantity = qty
-                    }
-                })
-                cart.save();
+        var prodId = req.params.prodId
+        available(qty,req.session.userid,prodId,(newQty)=>{
+            if(newQty != qty)
+                flag = false
+            if(flag){
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.end();
+                res.send({"quantity":newQty})
+            }else{
+                res.statusCode = 400;
+                res.send('quantity not available')
             }
-        }, (err) => console.log(err))
-        .catch((err) => console.log(err))
+        });
     }
     else    
         res.render('login',{error:'You are not logged in !'});
 })
+.delete((req,res)=>{
+    if(req.session.isLoggedin)
+    {
+        Carts.findOne({"userinfo":req.session.userid})
+        .populate('products.product')
+        .then((cart)=>{
+            if(cart){
+                cart.products.forEach((x,i,a)=>{
+                    if(x.product._id.valueOf() == req.params.prodId){
+                        var qty = req.body.quantity
+                        var newQuantity = x.product.quantity + qty
+                        
+                        a.splice(i,1);
+                        updateQuantity(newQuantity,req.session.userid,()=>{
+                        });
+                    }
+                })
+                cart.save();
+                res.end();
+            }
+        })
+    }
+})
+function available(qty,userId,prodId,callback){
+    Carts.findOne({"userinfo":userId})
+    .populate('products.product')
+    .then((cart)=>{
+        if(cart){
+            cart.products.forEach((x)=>{
+                if(x.product._id.valueOf() == prodId){
+                    var res = Math.min(x.product.quantity,qty);
+                    var newQuantity = x.product.quantity - res
+                    x.quantity = res
+                    callback(res);
+                    updateQuantity(newQuantity,prodId)
+                }
+            })
+            cart.save();
+        }
+    })
+}
+function updateQuantity(qty,userId,cb){
+    Products.findByIdAndUpdate({"_id": userId},{"quantity":qty},()=>{
+        cb();
+    });
+}
 module.exports = router;

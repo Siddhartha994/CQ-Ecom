@@ -23,9 +23,10 @@
                                     <h4 id="viewqty" style="display: block;"><b>Qty. = </b><%=e.quantity%></h4>
                                     <div id="editqty" style="display:  none;" key="<%=e.product._id%>">
                                         <label for="quantity">Qty.</label>
-                                        <input id="inputqty" type="number" min="1" max="5" step="1" value="<%=e.quantity%>"/>
+                                        <input id="inputqty" type="number" min="1" max="50" step="1" value="<%=e.quantity%>"/>
                                     </div>
                                     <button id="cfm" class="btn btn-warning">Edit</button>
+                                    <button id="delete" class="btn btn-danger" key="<%=e.product._id%>">Delete</button>
                                 </div>
                             </div>
                         </div>
