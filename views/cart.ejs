@@ -9,21 +9,30 @@
         <h1>Cart</h1>
         <div class="container">
             <div class="row">
-                <% items.forEach(function(e) { %>
-                    <div class="col-md-4">
-                        <div class="caption">
-                            <ul>
-                                <li>
-                                    <h3 align="left"><%= e.product.name %></h3>
-                                    <h4 align="right">Qty. <%= e.quantity%></h4>
+                <%if(error){%>
+                    <h1><%=error%></h1>
+                <%}else{%>
+                    <% items.forEach(function(e) { %>
+                        <div class="col-6 col-md-2">
+                            <div class="thumbnail">
+                                <img src="<%= e.product.image%>">
+                                <div class="caption">
+                                    <h3><%= e.product.name %></h3>
+                                    <!-- <h4>Qty. <%= e.quantity%></h4> -->
                                     <h4>$<%=e.product.price%></h4>
-                                    <button class="inc">+</button>
-                                </li>
-                            </ul>
+                                    <h4 id="viewqty" style="display: block;"><b>Qty. = </b><%=e.quantity%></h4>
+                                    <div id="editqty" style="display:  none;" key="<%=e.product._id%>">
+                                        <label for="quantity">Qty.</label>
+                                        <input id="inputqty" type="number" min="1" max="5" step="1" value="<%=e.quantity%>"/>
+                                    </div>
+                                    <button id="cfm" class="btn btn-warning">Edit</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                <% }) %>
+                    <% }) %>
+                <%}%>
             </div>
+        </div>
     </body>
     <script src="cartScript.js">
     </script>

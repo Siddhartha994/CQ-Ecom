@@ -26,6 +26,7 @@
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
+    "sweetalert2": "^11.4.9",
     "xoauth2": "^1.2.0"
   }
 }

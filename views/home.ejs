@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <title>Ecom</title>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     </head>
     <body>
         <h1 style="text-align: center;">Amajon  </h1>
@@ -11,13 +13,13 @@
         <div class="container">
             <div class="row">
                 <% products.forEach(function(e) { %>
-                    <div class="col-6 col-md-4">
+                    <div class="col-6 col-md-3" >
                         <div class="thumbnail">
                             <img src="<%= e.image %>">
                             <div class="caption">
                                 <h3><%= e.name %></h3>
-                                <button class="atc" key="<%=e._id%>" >Add to Cart</button>
-                                <button class="press" >Details</button>
+                                <button id="atc" class="btn btn-warning"  key="<%=e._id%>" >Add to Cart</button>
+                                <button id="press" class="btn btn-info" >Details</button>
                                 <div class="details" style="display: none">
                                     <p><%=e.description%></p>
                                     <p>₹<%=e.price%></p>
@@ -31,6 +33,7 @@
                 <input type="submit" name="more" value="Load More"/>
                 <input type="submit" name="collapse" value="Collapse"/>
             </form>
+        </div>
     </body>
     <script src="productScript.js">
     </script>
