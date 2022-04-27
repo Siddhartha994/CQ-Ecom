@@ -1,7 +1,9 @@
 const express = require('express');
 var multer  = require('multer')
 
+const bodyParser = require('body-parser')
 const router = express.Router();
+router.use(bodyParser.json());
 //multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -28,11 +30,11 @@ router.route('/new')
     res.render('admin/pages/addnew')
 })
 .post(upload.single('productImage'),(req,res)=>{
+    console.log(req.body)
     if(req.session.isLoggedin){
         const file = req.file;
         req.body.image = file.filename
         req.body.seller = req.session.userid
-        console.log(req.body)
         Products.create(req.body) 
         .then((product) => {
             console.log('Product Created ',product);
@@ -48,18 +50,27 @@ router.route('/myprod')
     var arr = []
     Products.find({"seller": req.session.userid})
     .then((myprod)=>{
-        console.log('fuck'+myprod)
         res.render('admin/pages/myProd',{prod: myprod})
+    })
+})
+.post((req,res)=>{
+    console.log(req.body.id)
+    Products.findByIdAndUpdate(req.body.id,{
+        $set:req.body
+    }).then(()=>{
+        res.redirect('myprod');
     })
 });
 router.route('/:id')
 .delete((req,res)=>{
     console.log('req received'+ req.params.id)
-    Products.findOneAndDelete((req.params.id),()=>{
-        res.end();
-    })
+    Products.findByIdAndRemove(req.params.id, function(err) {
+        if (err) { console.log(err)}
+        else res.end()
+    });
 })
-// router.route((req,res)=>{
+//findByIdAndDelete ==> deleting first element from db
+
 
 // })
 module.exports = router

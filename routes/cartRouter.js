@@ -149,9 +149,8 @@ function available(qty,userId,prodId,callback){
         }
     })
 }
-function updateQuantity(qty,userId,cb){
+function updateQuantity(qty,userId){
     Products.findByIdAndUpdate({"_id": userId},{"quantity":qty},()=>{
-        cb();
     });
 }
 module.exports = router;

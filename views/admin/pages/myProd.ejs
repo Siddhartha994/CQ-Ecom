@@ -21,38 +21,32 @@
                                 <button id="del" class="btn btn-danger" key="<%=e._id%>" >Delete</button>
                                 <button id="press" class="btn btn-success" >Update</button>
                                 <div class="details" style="display: none">
-                                    <form action="/admin/new" method="post" enctype="multipart/form-data">
+                                    <form  action="/admin/myprod" method="post" enctype="form-data">
+                                        <input type="hidden" name="id" value="<%=e._id%>"/>
                                         <div class="form-group row">
                                             <label for="name" class="col-md-2 col-form-label">Name</label>
                                             <div class="col-md-6">
-                                                <input name="name" type="text"  class="form-control"  placeholder= <%=e.name%>>
+                                                <input name="name" type="text"  class="form-control"  value= <%=e.name%>>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="description" class="col-md-2 col-form-label">Desc.</label>
                                             <div class="col-md-8">
-                                                <input name="description" type="text" rows="4" class="form-control"  placeholder= <%=e.description%>>
+                                                <input name="description" type="text" rows="4" class="form-control"  value= <%=e.description%>>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="price" class="col-md-2 col-form-label">Price</label>
                                             <div class="col-md-4">
                                                 <input name="price" type="number"  min="50" max="100000" step="10" class="form-control" 
-                                                        placeholder= <%=e.price%>>
+                                                        value= <%=e.price%>>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="quantity" class="col-12 col-md-2 col-form-label">Product Quantity</label>
                                             <div class="col-5 col-md-4">
                                                 <input name="quantity"  type="number" min="0" max="50000" step="5" class="form-control" id="quantity"
-                                                    placeholder= <%=e.quantity%>>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="image" class="col-12 col-md-2 col-form-label">Product Image</label>
-                                            <div class="col-7 col-md-7">
-                                                <input name="productImage" type="file" class="form-control-file" id="image"
-                                                    placeholder="Image" >
+                                                    value= <%=e.quantity%>>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-success">Update</button> 
